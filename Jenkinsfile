@@ -6,7 +6,7 @@ pipeline {
         docker {
             image 'markhobson/maven-chrome:latest' 
             // Required arg to ensure Chrome has enough memory in the Docker container
-            args '-v /dev/shm:/dev/shm -v $HOME/.m2:/root/.m2'
+            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/root/.m2'
         }
     }
 
