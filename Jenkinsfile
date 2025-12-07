@@ -13,7 +13,7 @@ pipeline {
 
     // 2. Define Environment Variables: Passes configuration to the test execution.
     environment {
-        // CRITICAL: Replace with your actual EC2 Public IP address and Port 80
+        
         APP_URL = 'http://13.60.210.62:80' 
         // Credential ID set up in Jenkins (your GitHub PAT)
         GH_CREDS = 'github-pat-creds' 
