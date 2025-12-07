@@ -2,13 +2,25 @@
 
 pipeline {
     // 1. Define Agent Environment: Uses the containerized environment for running tests.
-    agent {
+   agent {
         docker {
             image 'markhobson/maven-chrome:latest' 
-            // FINAL FINAL FIX: Force mapping to the container's root user's .m2 path
-            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/root/.m2' // Mapped to /root/.m2
+            // 1. CRITICAL: REMOVE THE ARGS LINE (or remove the -v /var/lib/jenkins/.m2...)
+            // The simplest is to remove the entire args line if no other args are critical.
+            // If you still need /dev/shm, keep that part only: args '-v /dev/shm:/dev/shm'
+            args '' 
+            user '0' // Keep user '0' for guaranteed execution
         }
-        
+    }
+
+    // ... (rest of the environment, stages) ...
+
+    stage('Execute Selenium Tests') {
+        steps {
+            echo "Running containerized Maven tests against ${APP_URL}..."
+            // 2. CRITICAL: Tell Maven to use a writable folder within the workspace for its cache
+            sh "mvn clean test -Dapp.url=${APP_URL} -Dmaven.repo.local=./.repository" // <-- ADDED CACHE DIRECTIVE
+        }
     }
 
     // 2. Define Environment Variables: Passes configuration to the test execution.
