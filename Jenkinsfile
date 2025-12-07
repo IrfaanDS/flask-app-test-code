@@ -5,8 +5,8 @@ pipeline {
     agent {
         docker {
             image 'markhobson/maven-chrome:latest' 
-            // FINAL FIX: Mapping the host's .m2 cache to the container's standard Jenkins user home directory
-            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/home/jenkins/.m2' 
+            // FINAL FINAL FIX: Force mapping to the container's root user's .m2 path
+            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/root/.m2' // Mapped to /root/.m2
         }
         
     }
