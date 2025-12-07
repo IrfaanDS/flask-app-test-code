@@ -23,8 +23,7 @@ public class BaseTest {
 
         // Instantiate WebDriver
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));        
         // Navigate to the base URL (which is the EC2 IP:80)
         driver.get(BASE_URL);
     }

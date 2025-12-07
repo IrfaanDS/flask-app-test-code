@@ -19,7 +19,7 @@ public class TestUtils {
         driver.findElement(By.name("email_address")).sendKeys(email);
         driver.findElement(By.name("password1")).sendKeys(password);
         driver.findElement(By.name("password2")).sendKeys(password);
-        driver.findElement(By.cssSelector(".form-register button[type='submit']")).click();
+        driver.findElement(By.cssSelector(".form-register input[type='submit']")).click();    
     }
 
     // Helper method to log in (used by Test Case 6 & 8)
