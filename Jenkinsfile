@@ -8,7 +8,7 @@ pipeline {
             // FINAL FIX: Mapping the host's .m2 cache to the container's standard Jenkins user home directory
             args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/home/jenkins/.m2' 
         }
-        }
+        
     }
 
     // 2. Define Environment Variables: Passes configuration to the test execution.
