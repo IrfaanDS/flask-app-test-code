@@ -35,19 +35,40 @@ public class TestUtils {
     }
 
     // Helper method to log in.
+    public static void registerUser(WebDriver driver, String username, String email, String password) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
+        driver.get(driver.getCurrentUrl() + "/register");
+
+        // FIX: Ensure the page is loaded by waiting for the header
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-register h1"))); 
+
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElement(By.name("email_address")).sendKeys(email);
+        driver.findElement(By.name("password1")).sendKeys(password);
+        driver.findElement(By.name("password2")).sendKeys(password);
+        
+        // Final corrected selector for <input type='submit'>
+        driver.findElement(By.cssSelector(".form-register input[type='submit']")).click();
+        
+        // CRITICAL FIX: Wait until the URL changes AWAY from /register to ensure redirect success
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("/register")));
+    }
+
+    // Helper method to log in
     public static void loginUser(WebDriver driver, String username, String password) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
-        // Ensure we navigate to the login page
         driver.get(driver.getCurrentUrl() + "/login"); 
 
-        // 1. Wait explicitly for the Login form container to appear before typing
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-signin")));
+        // FIX: Ensure the page is loaded by waiting for the header
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".form-signin h1")));
 
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
-        
-        // 2. FIXED LOCATOR: Target the input[type='submit'] tag
         driver.findElement(By.cssSelector(".form-signin input[type='submit']")).click();
+        
+        // CRITICAL FIX: Wait until the URL changes AWAY from /login to ensure redirect success
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("/login")));
     }
 }
