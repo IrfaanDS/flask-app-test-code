@@ -3,11 +3,13 @@ package com.market.test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement; // <-- CRITICAL MISSING IMPORT
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
 
+// ... (Rest of the class code)
 // Extends BaseTest to get the WebDriver setup/teardown logic
 public class MarketTest extends BaseTest {
 
