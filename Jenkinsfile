@@ -5,8 +5,9 @@ pipeline {
     agent {
         docker {
             image 'markhobson/maven-chrome:latest' 
-            // Required arg to ensure Chrome has enough memory in the Docker container
-            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/root/.m2'
+            // FINAL FIX: Mapping the host's .m2 cache to the container's standard Jenkins user home directory
+            args '-v /dev/shm:/dev/shm -v /var/lib/jenkins/.m2:/home/jenkins/.m2' 
+        }
         }
     }
 
